@@ -1,0 +1,33 @@
+\documentclass[12pt,a4paper,]{article}
+
+\newenvironment{blockquote}[1][1]{%
+	\par%
+	\medskip
+	\leftskip=#1em\rightskip=#1em%
+	\noindent\ignorespaces}{%
+	\par\medskip}
+
+\usepackage{CJK}
+
+\title{System programming assignment 5}
+\author{b07902129 \begin{CJK}{UTF8}{bsmi}何政勳\end{CJK}}
+\date{}
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble}
+
+\paragraph{(a)}\mbox{}\\
+What's the output of the parent? Explain your answer.
+	\begin{blockquote}
+	The answer varies from 1 to 10 because signal() is not safe. The same signal can arrive again before the signal handler be reset. Same signal arrives in a short time may also cause recursive call of the handler. Besides, different OS has different implementations of signal(). Some will reset the action to SIG\_DFL, some will block the signal. As a result, the output of count may differ every time and may differ on different OS.
+	\end{blockquote}
+
+
+\paragraph{(b)}\mbox{}\\
+If fork() is replaced with vfork(), is your answer still the same? Why?
+	\begin{blockquote}
+	No, the answer will become 1. vfork() ensures that the parent will run after the child. When the parent runs, the SIGUSR1 signal's flag is already on and will only trigger the handler once since the child has already exited.
+	\end{blockquote}
+
+\end{document}
